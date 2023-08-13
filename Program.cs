@@ -13,31 +13,31 @@ var parts = Regex.Split(expression, "^([\\d]*)([+|-|*|\\/])([\\d]*)$")
 
 if (parts.Count() == 3)
 {
-	if (!int.TryParse(parts[0], out var firstValue))
+	if (!float.TryParse(parts[0], out var firstValue))
 	{
 		Console.WriteLine($"Invalid input, needs to be a number: {parts[0]}");
 		return;
 	}
-	if (!int.TryParse(parts[2], out var secondValue))
+	if (!float.TryParse(parts[2], out var secondValue))
 	{
 		Console.WriteLine($"Invalid input, needs to be a number: {parts[1]}");
 		return;
 	}
 	if (parts[1]=="+")
 	{
-		Console.WriteLine(int.Parse(parts[0]) + int.Parse(parts[2]));
+		Console.WriteLine(firstValue + secondValue);
 	}
 	else if (parts[1]=="-")
 	{
-		Console.WriteLine(int.Parse(parts[0]) - int.Parse(parts[2]));
+		Console.WriteLine(firstValue - secondValue);
 	}
 	else if (parts[1]=="/")
 	{
-		Console.WriteLine(int.Parse(parts[0]) / int.Parse(parts[2]));
+		Console.WriteLine(firstValue / secondValue);
 	}
 	else if (parts[1]=="*")
 	{
-		Console.WriteLine(int.Parse(parts[0]) * int.Parse(parts[2]));
+		Console.WriteLine(firstValue * secondValue);
 	}
 	else
 	{
