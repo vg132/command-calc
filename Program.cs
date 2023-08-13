@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 if (Environment.GetCommandLineArgs().Length<2)
 {
@@ -7,18 +8,19 @@ if (Environment.GetCommandLineArgs().Length<2)
 }
 
 var expression = Environment.GetCommandLineArgs()[1];
-var parts = Regex.Split(expression, "^([\\d]*)([+|-|*|\\/])([\\d]*)$")
+var parts = Regex.Split(expression, "^([\\d\\.,]*)([+|-|*|\\/])([\\d\\.,]*)$")
 	.Where(item=>!string.IsNullOrEmpty(item))
 	.ToList();
 
 if (parts.Count() == 3)
 {
-	if (!float.TryParse(parts[0], out var firstValue))
+	var culture = new CultureInfo("en-us");
+	if (!float.TryParse(parts[0].Replace(",", "."), NumberStyles.Any, culture.NumberFormat, out var firstValue))
 	{
 		Console.WriteLine($"Invalid input, needs to be a number: {parts[0]}");
 		return;
 	}
-	if (!float.TryParse(parts[2], out var secondValue))
+	if (!float.TryParse(parts[2].Replace(",", "."), NumberStyles.Any, culture.NumberFormat, out var secondValue))
 	{
 		Console.WriteLine($"Invalid input, needs to be a number: {parts[1]}");
 		return;
